@@ -1,0 +1,43 @@
+{
+  "name": "npm_modules",
+  "version": "1.0.0",
+  "description": "Homework #1",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -r @babel/register src/app.js",
+    "build": "babel src -d dist --copy-files",
+    "start:v2": "npm run build && nodemon dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StepanPG/NodeJS_GMP.git"
+  },
+  "author": "Stepan Pugachev <stepan.puhachov@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StepanPG/NodeJS_GMP/issues"
+  },
+  "homepage": "https://github.com/StepanPG/NodeJS_GMP#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/register": "^7.0.0",
+    "husky": "^1.2.0",
+    "lint-staged": "^8.1.0",
+    "nodemon": "^1.18.7",
+    "prettier": "^1.15.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
