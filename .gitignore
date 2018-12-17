@@ -1,1 +1,4 @@
 node_modules
+.vscode
+
+async_dev/parsed_data
