@@ -9,19 +9,8 @@ const writeFileAsync = promisify(fs.writeFile);
 class Importer {
     constructor(eventEmitter) {
         this.eventEmitter = eventEmitter;
-
-        /**
-         *  I can see two options:
-         *  1. Store converted data from csv file in some local variable;
-         *  2. Write converted files in .json files and return it's contents on
-         *  .import(path) and .importSync(path) methods;
-         *  From my point of wiew second option is better for big .csv files.
-         *  Because big files are easier to store on disk instead of RAM to increase performance.
-         *  */
-        this.convertedData = {};
         this.eventEmitter.on('changed', (newFileNames) => {
             this.processDataToFile(newFileNames);
-            this.processDataToVariable(newFileNames);
         });
     }
 
@@ -68,22 +57,6 @@ class Importer {
         return JSON.parse(
             fs.readFileSync(`${__dirname}/../parsed_data/${fileName}.json`)
         );
-    }
-
-    processDataToVariable(fileNames) {
-        for (let i = 0; i < fileNames.length; i++) {
-            const fileName = path.basename(fileNames[i], '.csv');
-            csv()
-                .fromFile(`${__dirname}/../data/${fileNames[i]}`)
-                .then((json) => {
-                    this.convertedData[fileName] = json;
-                });
-        }
-    }
-
-    importFromLocal(filePath) {
-        const fileName = path.basename(filePath, '.csv');
-        return this.convertedData[fileName];
     }
 }
 

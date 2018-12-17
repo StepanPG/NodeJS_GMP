@@ -17,9 +17,6 @@ dirWatchEE.on('changed', (files) => {
                 console.log(`\n.import(path) from file: ${files[i]}`);
                 console.log(data);
             });
-
-            console.log(`\nimportFormLocal(path) from file: ${files[i]}`);
-            console.log(importer.importFromLocal(files[i]));
         }
     }, 5000);
 });
