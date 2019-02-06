@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "csv2json": "^1.4.2",
+    "multistream": "^2.1.1",
     "through2": "^3.0.0"
   },
   "husky": {

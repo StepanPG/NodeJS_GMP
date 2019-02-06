@@ -8,6 +8,7 @@ const { Writable, Transform } = require('stream');
 const log = require('../logger');
 const csv2json = require('csv2json');
 const through2 = require('through2');
+const multistream = require('multistream');
 
 const helpMessage = `
 Usage: ./streams.js --action=<actionName> [--file=<fileName>, textToTransform]
@@ -42,8 +43,8 @@ const cssToAddToBundle = `
 .ngmp18__hw3--t7 {
   font-weight: bold;
 }`;
-
-function reverse(str) {
+/*
+function reverseV0(str) {
     console.log(
         str
             .split('')
@@ -51,7 +52,18 @@ function reverse(str) {
             .join('')
     );
 }
-
+*/
+function reverse(str) {
+    process.stdin
+        .pipe(
+            through2(function(chunk, enc, callback) {
+                this.push(chunk.toString().toUpperCase());
+                callback();
+            })
+        )
+        .pipe(process.stdout);
+}
+/*
 function transform(str) {
     console.log(str.toUpperCase());
 }
@@ -81,7 +93,8 @@ function transformV3(str) {
 
     process.stdin.pipe(upperCaseTr).pipe(process.stdout);
 }
-
+*/
+/** This is correct version, according to requirements */
 function transformV4(str) {
     process.stdin
         .pipe(
@@ -177,15 +190,12 @@ function bundleCss(dirPath) {
             const cssFilesList = files.filter(
                 (file) => path.extname(file) === '.css'
             );
-            const cssPromises = cssFilesList.map((cssFile) => {
-                return fsPromises.readFile(`${dirPath}/${cssFile}`);
+            const cssFilesStreams = cssFilesList.map((cssFile) => {
+                return fs.createReadStream(`${dirPath}/${cssFile}`);
             });
-            return Promise.all(cssPromises);
-        })
-        .then((data) => {
-            return fsPromises.appendFile(
-                `${dirPath}/bundle.css`,
-                data.join('\n') + cssToAddToBundle
+            cssFilesStreams.push(fs.createReadStream('./nodejs-homework3.css'));
+            multistream(cssFilesStreams).pipe(
+                fs.createWriteStream(`${dirPath}/bundle.css`)
             );
         })
         .catch((err) => log.error(err));
@@ -212,7 +222,7 @@ function handleActions(actionName, args) {
         case 'reverse':
             reverse(args.join(' '));
             break;
-
+        /*
         case 'transform':
             transform(args.join(' '));
             break;
@@ -224,7 +234,7 @@ function handleActions(actionName, args) {
         case 'transformV3':
             transformV3(args.join(' '));
             break;
-
+*/
         case 'transformV4':
             transformV4(args.join(' '));
             break;
