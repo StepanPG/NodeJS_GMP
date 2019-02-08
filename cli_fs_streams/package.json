@@ -1,0 +1,40 @@
+{
+  "name": "cli_fs_streams",
+  "version": "1.0.0",
+  "description": "Homework #3",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "util:reverse": "./src/utils/streams.js -a reverse reverse this text",
+    "util:transform": "./src/utils/streams.js --action=reverse transform this text",
+    "util:outputFile": "./src/utils/streams.js -a outputFile -f ./app.js",
+    "util:convertFromFile": "./src/utils/streams.js -a convertFromFile --file=./src/csv_samples/music-small.csv",
+    "util:convertToFile": "./src/utils/streams.js --action=convertToFile -f ./src/csv_samples/music-small.csv",
+    "util:cssBundler": "./src/utils/streams.js --actioncssBundler --path=./src/css"
+  },
+  "author": "Stepan Pugachev <stepan-mandarin@yandex.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.0",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.15.3",
+    "winston": "^3.1.0"
+  },
+  "dependencies": {
+    "csv2json": "^1.4.2",
+    "multistream": "^2.1.1",
+    "through2": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
