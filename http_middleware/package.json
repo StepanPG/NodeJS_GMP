@@ -1,0 +1,43 @@
+{
+  "name": "http_middleware",
+  "version": "1.0.0",
+  "description": "Homework #4",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:plain-text-server": "nodemon -r @babel/register ./http-servers/plain-text-server.js",
+    "start:html-server": "nodemon -r @babel/register ./http-servers/html-server.js",
+    "start:json-server": "nodemon -r @babel/register ./http-servers/json-server.js",
+    "start:echo-server": "nodemon -r @babel/register ./http-servers/echo-server.js",
+    "createStorage": "node -r @babel/register ./helpers/createStorage.js",
+    "start": "node -r @babel/register ./index.js",
+    "start:dev": "nodemon -r @babel/register ./index.js"
+  },
+  "author": "Stepan Pugachev <stepan-mandarin@yandex.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.3",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "express": "^4.16.4",
+    "through2": "^3.0.0",
+    "winston": "^3.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
