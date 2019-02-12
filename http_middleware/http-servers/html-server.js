@@ -37,10 +37,6 @@ server.on('request', (req, res) => {
             })
         )
         .pipe(res);
-    // Q: what to do with this handler ??? ???
-    // .on('end', () => {
-    //     res.end();
-    // });
 });
 
 server.on('listening', () => {
