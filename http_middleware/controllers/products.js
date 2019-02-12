@@ -23,6 +23,7 @@ class ProductsController {
             })
             .catch((err) => {
                 logger.error(`Error while reading data from DB file: `, err);
+                return Promise.reject(err);
             });
     }
 
@@ -43,6 +44,7 @@ class ProductsController {
             })
             .catch((err) => {
                 logger.error(`Error while reading data from DB file: `, err);
+                return Promise.reject(err);
             });
     }
 
@@ -64,6 +66,7 @@ class ProductsController {
             })
             .catch((err) => {
                 logger.error(`Error while reading data from DB file: `, err);
+                return Promise.reject(err);
             });
     }
 
@@ -81,9 +84,10 @@ class ProductsController {
                     JSON.stringify(newData)
                 );
             })
-            .then(() => true)
+            .then(() => product)
             .catch((err) => {
                 logger.error(`Error while reading data from DB file: `, err);
+                return Promise.reject(err);
             });
     }
 }

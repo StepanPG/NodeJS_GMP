@@ -8,11 +8,11 @@ users.get('/', (req, res, next) => {
     userController
         .getAllUsers()
         .then((users) => {
-            logger.info(users);
             res.json(users);
         })
         .catch((err) => {
             logger.error(`Error while fetching users: `, err);
+            res.sendStatus(500);
         });
 });
 

@@ -1,3 +1,4 @@
+// todo: update DB based on fs with real Database (e.g. MongoDB), and don't forget to run in in Docker container :)
 export default function getUpdatedDB(allData, product) {
     let lastReviewId = allData.lastReviewId;
     let lastProjectId = allData.lastProjectId;

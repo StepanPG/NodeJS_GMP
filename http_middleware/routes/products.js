@@ -12,6 +12,7 @@ products.get('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching products: `, err);
+            res.sendStatus(500);
         });
 });
 
@@ -24,6 +25,7 @@ products.get('/:id', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching product by id: `, err);
+            res.sendStatus(500);
         });
 });
 
@@ -36,6 +38,7 @@ products.get('/:id/reviews', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching reviews by product id: `, err);
+            res.sendStatus(500);
         });
 });
 
@@ -56,17 +59,15 @@ products.get('/:id/reviews', (req, res, next) => {
  */
 
 products.post('/', (req, res, next) => {
-    const newProduct = req.body;
+    const newProduct = req.parsedQuery;
     productsController
         .addNewProduct(newProduct)
-        .then((result) => {
-            if (result) {
-                res.json(newProduct);
-            }
-            res.end('somethig wrong.');
+        .then((product) => {
+            res.json(product);
         })
         .catch((err) => {
             logger.error(`Error while adding new product: `, err);
+            res.sendStatus(500);
         });
 });
 
