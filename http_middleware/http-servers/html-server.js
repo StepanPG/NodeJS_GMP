@@ -40,7 +40,7 @@ server.on('request', (req, res) => {
 });
 
 server.on('listening', () => {
-    logger.log(`Server listening on port: ${PORT}`);
+    logger.info(`Server listening on port: ${PORT}`);
 });
 
 server.on('error', (error) => {
