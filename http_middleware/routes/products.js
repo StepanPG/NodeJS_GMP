@@ -59,7 +59,7 @@ products.get('/:id/reviews', (req, res, next) => {
  */
 
 products.post('/', (req, res, next) => {
-    const newProduct = req.parsedQuery;
+    const newProduct = req.body;
     productsController
         .addNewProduct(newProduct)
         .then((product) => {

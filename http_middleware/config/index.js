@@ -1,3 +1,5 @@
+import users from './users.json';
+
 const config = {
     storagePath: __dirname + '/../db/storage.json',
     defaultData: {
@@ -36,18 +38,7 @@ const config = {
                 content: 'This is first review of some product #2',
             },
         ],
-        users: [
-            {
-                id: 1,
-                name: 'Stepan Puhachov',
-                location: 'Minsk, BY',
-            },
-            {
-                id: 2,
-                name: 'Ivan Ivanov',
-                location: 'Moscow, RU',
-            },
-        ],
+        users,
     },
 };
 

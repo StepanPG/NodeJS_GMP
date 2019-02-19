@@ -11,7 +11,7 @@ export default function queryParser(req, res, next) {
     });
     req.on('end', () => {
         try {
-            req.parsedQuery = data.length ? JSON.parse(data) : {};
+            req.body = data.length ? JSON.parse(data) : {};
             next();
         } catch (err) {
             next(err);
