@@ -1,10 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 export default function jwtParser(req, res, next) {
-    if (
-        req.originalUrl.startsWith('/auth') ||
-        req.originalUrl.startsWith('/login')
-    ) {
+    if (req.originalUrl.startsWith('/auth')) {
         next();
     } else {
         const token = req.headers['x-access-token'];

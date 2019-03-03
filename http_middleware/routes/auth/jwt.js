@@ -1,11 +1,10 @@
 import express from 'express';
-import { logger } from '../logger';
-import storage from '../db/storage.json';
-import jwt from 'jsonwebtoken';
+import storage from '../../db/storage.json';
+import jsonwebtoken from 'jsonwebtoken';
 
-const auth = express.Router();
+const jwt = express.Router();
 
-auth.post('/', (req, res, next) => {
+jwt.post('/', (req, res, next) => {
     const user = storage.users.find((user) => user.email === req.body.email);
 
     if (user && user.password !== req.body.password) {
@@ -22,7 +21,7 @@ auth.post('/', (req, res, next) => {
             user: user.username,
         };
 
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+        const token = jsonwebtoken.sign(payload, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_TOKEN_EXPIRES,
         });
 
@@ -40,4 +39,4 @@ auth.post('/', (req, res, next) => {
     }
 });
 
-export default auth;
+export default jwt;
