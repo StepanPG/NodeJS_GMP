@@ -1,5 +1,7 @@
+import path from 'path';
+
 const config = {
-    storagePath: __dirname + '/../db/storage.json',
+    storagePath: path.resolve(__dirname, '/../db/storage.json'),
     defaultData: {
         lastProjectId: 2,
         lastReviewId: 3,
