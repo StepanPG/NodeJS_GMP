@@ -8,15 +8,16 @@ import passport from 'passport';
 import { logger } from './logger';
 import mongoDB from './database/mongoose';
 
-require('dotenv').config();
-
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => logger.info(`App listening on port ${port}!`));
 
 app.use(cookieParser);
 app.use(queryParser);
-app.use(jwtParser);
-app.use(passport.initialize());
+if (process.env.AUTH_TYPE === 'jwt') {
+    app.use(jwtParser);
+} else {
+    app.use(passport.initialize());
+}
 
 app.use('/', routes);
