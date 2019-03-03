@@ -62,7 +62,9 @@ class ProductsController {
                 );
             })
             .then(([product]) => {
-                return product.reviews;
+                return product
+                    ? product.reviews
+                    : `There is no product with provided id`;
             })
             .catch((err) => {
                 logger.error(`Error while reading data from DB file: `, err);
