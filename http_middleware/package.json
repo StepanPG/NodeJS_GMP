@@ -9,9 +9,12 @@
     "start:html-server": "nodemon -r @babel/register ./http-servers/html-server.js",
     "start:json-server": "nodemon -r @babel/register ./http-servers/json-server.js",
     "start:echo-server": "nodemon -r @babel/register ./http-servers/echo-server.js",
-    "createStorage": "node -r @babel/register ./helpers/createStorage.js",
     "start": "node -r @babel/register ./index.js",
-    "start:dev": "nodemon -r @babel/register ./index.js"
+    "start:dev": "nodemon -r @babel/register ./index.js",
+    "init:docker-postgres": "docker run --rm --name ST-PG-NGMP -e POSTGRES_PASSWORD=password -e POSTGRES_USER=user -p 33033:5432 postgres",
+    "init:pg-seed": "node_modules/.bin/sequelize db:seed:all",
+    "migrations:run": "node_modules/.bin/sequelize db:migrate",
+    "migrations:revert": "node_modules/.bin/sequelize db:migrate:undo:all"
   },
   "author": "Stepan Pugachev <stepan-mandarin@yandex.ru>",
   "license": "ISC",
@@ -25,7 +28,12 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "pg": "^7.8.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.43.0",
+    "sequelize-cli": "^5.4.0",
     "through2": "^3.0.0",
     "winston": "^3.2.1"
   },
