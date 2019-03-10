@@ -21,7 +21,7 @@ products.get('/:id', (req, res, next) => {
     productsController
         .getProductById(productId)
         .then((product) => {
-            res.json(product);
+            product ? res.json(product) : res.sendStatus(404);
         })
         .catch((err) => {
             logger.error(`Error while fetching product by id: `, err);
@@ -32,9 +32,11 @@ products.get('/:id', (req, res, next) => {
 products.get('/:id/reviews', (req, res, next) => {
     const productId = parseInt(req.params.id, 10);
     productsController
-        .getReviewsByProductId(productId)
-        .then((reviews) => {
-            res.json(reviews);
+        .getProductById(productId)
+        .then((product) => {
+            product
+                ? res.json(product.reviews.map((review) => JSON.parse(review)))
+                : res.sendStatus(404);
         })
         .catch((err) => {
             logger.error(`Error while fetching reviews by product id: `, err);
@@ -47,10 +49,7 @@ products.get('/:id/reviews', (req, res, next) => {
  *
  * {
  *     "name": "MacBook Pro 13",
- *     "properties": {
- *         "color": "silver",
- *         "ram": 8
- *     },
+ *     "description": "The best notebook",
  *     "reviews": [{
  *         "content": "this is review of new MacBook Pro 13"
  *     }]

@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "user",
+    "password": "password",
+    "database": "postgres",
+    "host": "127.0.0.1",
+    "port": "33033",
+    "dialect": "postgres"
+  }
+}
