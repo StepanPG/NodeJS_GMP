@@ -16,4 +16,47 @@ users.get('/', (req, res, next) => {
         });
 });
 
+/**
+ * POST request 'body' example:
+ *  {
+ *      "firstName" : "Wade",
+ *      "lastName" : "Jimenez",
+ *      "email" : "Donec@Crasdictumultricies.co.uk",
+ *      "password" : "Jg1d86iw4Ly",
+ *  }
+ */
+users.post('/', (req, res, next) => {
+    userController
+        .addNewUser(req.parsedQuery)
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            logger.error(`Error while adding new user: `, err);
+            res.sendStatus(500);
+        });
+});
+
+users.put('/:id', (req, res, next) => {
+    userController
+        .updateUserById(req.params.id, req.parsedQuery)
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            res.sendStatus(500);
+        });
+});
+
+users.delete('/:id', (req, res, next) => {
+    userController
+        .deleteUserById(req.params.id)
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            res.sendStatus(500);
+        });
+});
+
 export default users;

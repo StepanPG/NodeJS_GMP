@@ -1,96 +1,58 @@
-import fs from 'fs';
-import config from '../config';
+import ProductModel from '../models/product';
 import { logger } from '../logger';
-import combineProductsAndReviews from '../helpers/combineProductsAndReviews';
-import getUpdatedDB from '../helpers/getUpdatedDB';
-
-const fsPromises = fs.promises;
+import { addLastModifiedDate } from '../helpers';
 
 class ProductsController {
     getAllProducts() {
-        return fsPromises
-            .readFile(config.storagePath, 'utf8')
-            .then((data) => {
-                const parsedData = JSON.parse(data);
-                return parsedData;
-            })
-            .then((data) => {
-                const products = combineProductsAndReviews(
-                    data.products,
-                    data.reviews
-                );
-                return products;
-            })
-            .catch((err) => {
-                logger.error(`Error while reading data from DB file: `, err);
-                return Promise.reject(err);
-            });
+        return ProductModel.find();
     }
 
     getProductById(productId) {
-        return fsPromises
-            .readFile(config.storagePath, 'utf8')
-            .then((data) => {
-                const parsedData = JSON.parse(data);
-                return combineProductsAndReviews(
-                    parsedData.products,
-                    parsedData.reviews
-                );
-            })
-            .then((allProducts) => {
-                return allProducts.filter(
-                    (product) => product.id === productId
-                );
-            })
-            .catch((err) => {
-                logger.error(`Error while reading data from DB file: `, err);
-                return Promise.reject(err);
-            });
+        return ProductModel.findById(productId).catch((err) => {
+            logger.error(`Error while reading data from DB: ${err.message}`);
+            console.log(err.stack);
+            return Promise.reject(err);
+        });
     }
 
     getReviewsByProductId(productId) {
-        return fsPromises
-            .readFile(config.storagePath, 'utf8')
-            .then((data) => {
-                const parsedData = JSON.parse(data);
-                const allProducts = combineProductsAndReviews(
-                    parsedData.products,
-                    parsedData.reviews
-                );
-                return allProducts.filter(
-                    (product) => product.id === productId
-                );
-            })
-            .then(([product]) => {
-                return product
-                    ? product.reviews
-                    : `There is no product with provided id`;
+        return ProductModel.findById(productId)
+            .then((product) => {
+                return product.reviews;
             })
             .catch((err) => {
-                logger.error(`Error while reading data from DB file: `, err);
+                logger.error(
+                    `Error while reading data from DB: ${err.message}`
+                );
+                console.log(err.stack);
                 return Promise.reject(err);
             });
     }
 
     addNewProduct(product) {
-        return fsPromises
-            .readFile(config.storagePath, 'utf8')
-            .then((data) => {
-                const parsedData = JSON.parse(data);
+        return new ProductModel(addLastModifiedDate(product)).save();
+    }
 
-                return getUpdatedDB(parsedData, product);
-            })
-            .then((newData) => {
-                return fsPromises.writeFile(
-                    config.storagePath,
-                    JSON.stringify(newData)
-                );
-            })
-            .then(() => product)
-            .catch((err) => {
-                logger.error(`Error while reading data from DB file: `, err);
-                return Promise.reject(err);
-            });
+    updateProductById(productId, newData) {
+        return ProductModel.findByIdAndUpdate(
+            productId,
+            addLastModifiedDate(newData),
+            {
+                upsert: true,
+            }
+        ).catch((err) => {
+            logger.error(`Error while updating product by id: ${err.message}`);
+            console.log(err.stack);
+            return Promise.reject(err);
+        });
+    }
+
+    deleteProductById(productId) {
+        return ProductModel.findByIdAndDelete(productId).catch((err) => {
+            logger.error(`Error while deleting product by id: ${err.message}`);
+            console.log(err.stack);
+            return Promise.reject(err);
+        });
     }
 }
 
