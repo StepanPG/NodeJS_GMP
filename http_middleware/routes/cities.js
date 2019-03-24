@@ -12,7 +12,7 @@ cities.get('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching cities: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -37,7 +37,7 @@ cities.post('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while adding new city: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -48,7 +48,7 @@ cities.put('/:id', (req, res, next) => {
             res.json(city);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -59,7 +59,7 @@ cities.delete('/:id', (req, res, next) => {
             res.json(city);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 

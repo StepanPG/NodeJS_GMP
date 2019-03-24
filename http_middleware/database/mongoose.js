@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv/config';
 
 const mongoDB = mongoose.connect(
     `mongodb://localhost:${process.env.MONGODB_PORT}/${

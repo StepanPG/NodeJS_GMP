@@ -12,7 +12,7 @@ users.get('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching users: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -33,7 +33,7 @@ users.post('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while adding new user: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -44,7 +44,7 @@ users.put('/:id', (req, res, next) => {
             res.json(user);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -55,7 +55,7 @@ users.delete('/:id', (req, res, next) => {
             res.json(user);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 

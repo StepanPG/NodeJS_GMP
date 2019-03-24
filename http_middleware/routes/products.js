@@ -12,7 +12,7 @@ products.get('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching products: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -23,7 +23,7 @@ products.get('/:id', (req, res, next) => {
             res.json(product);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -34,7 +34,7 @@ products.get('/:id/reviews', (req, res, next) => {
             res.json(reviews);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -60,7 +60,7 @@ products.post('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while adding new product: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -71,7 +71,7 @@ products.put('/:id', (req, res, next) => {
             res.json(product);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -82,7 +82,7 @@ products.delete('/:id', (req, res, next) => {
             res.json(product);
         })
         .catch((err) => {
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
