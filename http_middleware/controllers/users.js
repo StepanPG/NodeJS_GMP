@@ -1,21 +1,36 @@
-import fs from 'fs';
-import config from '../config';
 import { logger } from '../logger';
-
-const fsPromises = fs.promises;
+import UserModel from '../models/user';
+import { addLastModifiedDate } from '../helpers';
 
 class UsersController {
     getAllUsers() {
-        return fsPromises
-            .readFile(config.storagePath, 'utf8')
-            .then((data) => {
-                const parsedData = JSON.parse(data);
-                return parsedData.users;
-            })
-            .catch((err) => {
-                logger.error(`Error while reading data from DB file: `, err);
-                return Promise.reject(err);
-            });
+        return UserModel.find();
+    }
+
+    addNewUser(newUser) {
+        return new UserModel(addLastModifiedDate(newUser)).save();
+    }
+
+    updateUserById(userId, newData) {
+        return UserModel.findByIdAndUpdate(
+            userId,
+            addLastModifiedDate(newData),
+            {
+                upsert: true,
+            }
+        ).catch((err) => {
+            logger.error(`Error while updating user by id: ${err.message}`);
+            console.log(err.stack);
+            return Promise.reject(err);
+        });
+    }
+
+    deleteUserById(userId) {
+        return UserModel.findByIdAndDelete(userId).catch((err) => {
+            logger.error(`Error while deleting user by id: ${err.message}`);
+            console.log(err.stack);
+            return Promise.reject(err);
+        });
     }
 }
 

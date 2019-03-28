@@ -12,33 +12,29 @@ products.get('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while fetching products: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
 products.get('/:id', (req, res, next) => {
-    const productId = parseInt(req.params.id, 10);
     productsController
-        .getProductById(productId)
+        .getProductById(req.params.id)
         .then((product) => {
             res.json(product);
         })
         .catch((err) => {
-            logger.error(`Error while fetching product by id: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
 products.get('/:id/reviews', (req, res, next) => {
-    const productId = parseInt(req.params.id, 10);
     productsController
-        .getReviewsByProductId(productId)
+        .getReviewsByProductId(req.params.id)
         .then((reviews) => {
             res.json(reviews);
         })
         .catch((err) => {
-            logger.error(`Error while fetching reviews by product id: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
         });
 });
 
@@ -47,10 +43,7 @@ products.get('/:id/reviews', (req, res, next) => {
  *
  * {
  *     "name": "MacBook Pro 13",
- *     "properties": {
- *         "color": "silver",
- *         "ram": 8
- *     },
+ *     "description": "The best notebook",
  *     "reviews": [{
  *         "content": "this is review of new MacBook Pro 13"
  *     }]
@@ -67,7 +60,29 @@ products.post('/', (req, res, next) => {
         })
         .catch((err) => {
             logger.error(`Error while adding new product: `, err);
-            res.sendStatus(500);
+            res.status(500).send(err.message);
+        });
+});
+
+products.put('/:id', (req, res, next) => {
+    productsController
+        .updateProductById(req.params.id, req.parsedQuery)
+        .then((product) => {
+            res.json(product);
+        })
+        .catch((err) => {
+            res.status(500).send(err.message);
+        });
+});
+
+products.delete('/:id', (req, res, next) => {
+    productsController
+        .deleteProductById(req.params.id)
+        .then((product) => {
+            res.json(product);
+        })
+        .catch((err) => {
+            res.status(500).send(err.message);
         });
 });
 

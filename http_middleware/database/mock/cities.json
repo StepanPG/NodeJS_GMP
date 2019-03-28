@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Ketchikan",
+    "country": "United States",
+    "location": "-8.91038, 20.94164",
+    "zip": "54141"
+  },
+  {
+    "name": "Flint",
+    "country": "United States",
+    "location": "-51.00004, 160.23442",
+    "zip": "38205"
+  },
+  {
+    "name": "Lafayette",
+    "country": "United States",
+    "location": "36.3415, -51.70051",
+    "zip": "26716"
+  },
+  {
+    "name": "Kaneohe",
+    "country": "United States",
+    "location": "-74.36181, 170.60801",
+    "zip": "92380"
+  },
+  {
+    "name": "Gillette",
+    "country": "United States",
+    "location": "-32.46539, 162.93564",
+    "zip": "15426"
+  }
+]

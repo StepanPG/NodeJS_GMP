@@ -1,8 +1,10 @@
+import dotenv from 'dotenv/config';
 import app from './app';
 import routes from './routes';
 import cookieParser from './middlewares/cookie-parser';
 import queryParser from './middlewares/query-parser';
 import { logger } from './logger';
+import mongoDB from './database/mongoose';
 
 const port = process.env.PORT || 8080;
 
