@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import storage from '../../db/storage.json';
+import userController from '../../controllers/users';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import BearerStrategy from 'passport-http-bearer';
@@ -15,13 +15,20 @@ passport.use(
             session: false,
         },
         function(username, password, done) {
-            const user = storage.users.find((user) => user.email === username);
-
-            if (user && user.password !== password) {
-                done(null, false, 'Bad username/password combination');
-            } else {
-                done(null, user);
-            }
+            userController
+                .getUserByEmail(username)
+                .then((user) => {
+                    if (user && user.password === password) {
+                        done(null, user);
+                    } else {
+                        done(null, false, 'Bad username/password combination');
+                    }
+                })
+                .catch((err) => {
+                    console.log(
+                        `Error on local login: ${err} \n\nFor user: ${username}`
+                    );
+                });
         }
     )
 );
@@ -49,9 +56,7 @@ local.post(
     }),
     (req, res, next) => {
         const payload = {
-            sub: req.user.id,
-            user: req.user.username,
-            email: req.user.email,
+            user: req.user.userName,
         };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {

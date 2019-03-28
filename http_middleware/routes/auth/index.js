@@ -7,6 +7,18 @@ import google from './google';
 
 const auth = express.Router();
 
+auth.get('/', (req, res, next) => {
+    res.send(`Please choose one of auth routes:
+    Social:
+        /auth/facebook,
+        /auth/google,
+        /auth/twitter;
+    JWT:
+        /auth/jwt
+    Local+Bearer:
+        /auth/local`);
+});
+
 auth.use('/jwt', jwt);
 auth.use('/local', local);
 auth.use('/facebook', facebook);

@@ -40,6 +40,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "through2": "^3.0.0",
+    "uuid": "^3.3.2",
     "winston": "^3.2.1"
   },
   "husky": {
