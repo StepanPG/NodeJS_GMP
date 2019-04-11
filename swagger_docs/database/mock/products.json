@@ -1,0 +1,52 @@
+[
+  {
+    "productId": "1",
+    "name": "In Faucibus Industries",
+    "description": "Lorem ipsum dolor sit amet, consectetuer",
+    "reviews": [
+      {
+        "content": "this is a review ))"
+      }
+    ]
+  },
+  {
+    "productId": "2",
+    "name": "Fermentum Convallis Limited",
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing",
+    "reviews": [
+      {
+        "content": "this is a review ))"
+      }
+    ]
+  },
+  {
+    "productId": "3",
+    "name": "Elementum Inc.",
+    "description": "Lorem ipsum dolor",
+    "reviews": [
+      {
+        "content": "this is a review ))"
+      }
+    ]
+  },
+  {
+    "productId": "4",
+    "name": "Blandit Ltd",
+    "description": "Lorem",
+    "reviews": [
+      {
+        "content": "this is a review ))"
+      }
+    ]
+  },
+  {
+    "productId": "5",
+    "name": "Arcu LLP",
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+    "reviews": [
+      {
+        "content": "this is a review ))"
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "name": "swagger-docs",
+  "version": "1.0.0",
+  "description": "Homework #8",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r @babel/register ./index.js",
+    "start:dev": "nodemon -r @babel/register ./index.js",
+    "docker-mongo": "docker run --rm --name ST-MONGO-NGMP -p 27017:27017 -d mongo",
+    "mongo-seed": "node -r @babel/register ./database/mongo-seed.js"
+  },
+  "author": "Stepan Pugachev <stepan-mandarin@yandex.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.0",
+    "swagger-ui-express": "^4.0.2",
+    "yamljs": "^0.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

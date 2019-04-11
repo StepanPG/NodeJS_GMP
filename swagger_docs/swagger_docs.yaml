@@ -1,0 +1,507 @@
+openapi: 3.0.0
+info:
+  title: hw_8 title
+  description: hw_8 api description
+  version: 1.0.0
+servers:
+- url: http://localhost:{port}
+  variables:
+    port:
+      default: "8080"
+tags:
+- name: users
+  description: users reated routes
+- name: products
+  description: products reated routes
+- name: cities
+  description: cities reated routes
+paths:
+  /api/users:
+    get:
+      tags:
+      - users
+      summary: Return users.
+      description: This route returns all users stored in DB.
+      operationId: getAllUsers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              example:
+              - $ref: '#/components/examples/user/value'
+        500:
+          description: Internal server error
+    post:
+      tags:
+      - users
+      summary: Create user.
+      description: This route creates new user and writes it in DB.
+      operationId: addUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              $ref: '#/components/examples/user/value'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                $ref: '#/components/examples/user/value'
+        400:
+          description: Bad Request
+        500:
+          description: Internal server error
+  /api/users/{id}:
+    put:
+      tags:
+      - users
+      summary: Update user by user id.
+      description: This route updates user by id in DB.
+      operationId: updateUserById
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            example:
+              $ref: '#/components/examples/user/value'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                $ref: '#/components/examples/user/value'
+        400:
+          description: Bad Request
+        500:
+          description: Internal server error
+    delete:
+      tags:
+      - users
+      summary: Delete user by user id.
+      description: This route deletes user by id from DB.
+      operationId: deleteUserById
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              example:
+                $ref: '#/components/examples/user/value'
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+  /api/products:
+    get:
+      tags:
+      - products
+      summary: Return products.
+      description: This route returns all products stored in DB.
+      operationId: getAllProducts
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+              example:
+              - $ref: '#/components/examples/product/value'
+        500:
+          description: Internal server error
+    post:
+      tags:
+      - products
+      summary: Create new product.
+      description: This route creates new product and writes it in DB.
+      operationId: addProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+            example:
+              $ref: '#/components/examples/product/value'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              example:
+                $ref: '#/components/examples/product/value'
+        400:
+          description: Bad Request
+        500:
+          description: Internal server error
+  /api/products/{id}:
+    get:
+      tags:
+      - products
+      summary: Return product by id.
+      description: This route returns product by id from DB.
+      operationId: getProductById
+      parameters:
+      - name: id
+        in: path
+        description: Product ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              example:
+                $ref: '#/components/examples/product/value'
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+    put:
+      tags:
+      - products
+      summary: Update product by id.
+      description: This route updates product by id in DB.
+      operationId: updateProductById
+      parameters:
+      - name: id
+        in: path
+        description: Product ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+            example:
+              $ref: '#/components/examples/product/value'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              example:
+                $ref: '#/components/examples/product/value'
+        400:
+          description: Bad Request
+        500:
+          description: Internal server error
+    delete:
+      tags:
+      - products
+      summary: Delete product by id.
+      description: This route deletes product by id from DB.
+      operationId: deleteProductById
+      parameters:
+      - name: id
+        in: path
+        description: Product ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+              example:
+                $ref: '#/components/examples/product/value'
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+  /api/products/{id}/reviews:
+    get:
+      tags:
+      - products
+      summary: Get reviews by product id.
+      description: This route returns reviews by product id from DB.
+      operationId: getReviewsByProductId
+      parameters:
+      - name: id
+        in: path
+        description: Product ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+              example:
+                $ref: '#/components/examples/product/value/reviews/0'
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+  /api/cities:
+    get:
+      tags:
+      - cities
+      summary: Get cities.
+      description: This route returns all cities from DB.
+      operationId: getAllCities
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/City'
+              example:
+              - $ref: '#/components/examples/city/value'
+        500:
+          description: Internal server error
+    post:
+      tags:
+      - cities
+      summary: Create city.
+      description: This route creates city and writes it in DB.
+      operationId: addCity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/City'
+            example:
+              $ref: '#/components/examples/city/value'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+              example:
+                $ref: '#/components/examples/city/value'
+        400:
+          description: Bad Request
+        500:
+          description: Internal server error
+  /api/cities/{id}:
+    put:
+      tags:
+      - cities
+      summary: Update city by id.
+      description: This route updated city by id in DB.
+      operationId: updateCityById
+      parameters:
+      - name: id
+        in: path
+        description: City ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/City'
+            example:
+              $ref: '#/components/examples/city/value'
+        required: true
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+              example:
+                $ref: '#/components/examples/city/value'
+        400:
+          description: Bad Request
+        500:
+          description: Internal server error
+    delete:
+      tags:
+      - cities
+      summary: Delete city by id.
+      description: This route deletes city by id from DB.
+      operationId: deleteCityById
+      parameters:
+      - name: id
+        in: path
+        description: City ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: utf-8
+          example: "123"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+              example:
+                $ref: '#/components/examples/city/value'
+        404:
+          description: Not Found
+        500:
+          description: Internal server error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        displayName:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+    Product:
+      type: object
+      properties:
+        productId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    Review:
+      type: object
+      properties:
+        content:
+          type: string
+    City:
+      type: object
+      properties:
+        cityId:
+          type: string
+        name:
+          type: string
+        country:
+          type: string
+        location:
+          $ref: '#/components/schemas/coordinates'
+        zip:
+          type: number
+    coordinates:
+      type: object
+      properties:
+        lat:
+          type: number
+        long:
+          type: number
+  examples:
+    city:
+      summary: city example
+      value:
+        cityId: '2'
+        name: Flint
+        country: United States
+        location:
+          lat: -51.00004
+          long: 160.23442
+        zip: 38205
+    user:
+      summary: user example
+      value:
+        userId: '1'
+        userName: semper.Nam
+        displayName: semper Nam
+        password: bQ3t60hi2ax
+        email: semper.Nam@morbi.ca
+    product:
+      summary: product example
+      value:
+        productId: '2'
+        name: Elementum Inc.
+        description: Lorem ipsum dolor
+        reviews:
+        - content: this is a review ))
