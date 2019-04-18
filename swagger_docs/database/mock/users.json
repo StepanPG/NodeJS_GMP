@@ -1,0 +1,23 @@
+[
+  {
+    "userId": 1,
+    "userName": "semper.Nam@morbi.ca",
+    "password": "bQ3t60hi2ax",
+    "displayName": "semper.Nam",
+    "email": "semper.Nam@morbi.ca"
+  },
+  {
+    "userId": 2,
+    "userName": "Phasellus@temporaugue.edu",
+    "password": "zR3H61kR2tf",
+    "displayName": "Phasellus",
+    "email": "Phasellus@temporaugue.edu"
+  },
+  {
+    "userId": 3,
+    "userName": "Donec@Crasdictumultricies.co.uk",
+    "password": "Jg1d86iw4Ly",
+    "displayName": "Donec",
+    "email": "Donec@Crasdictumultricies.co.uk"
+  }
+]
